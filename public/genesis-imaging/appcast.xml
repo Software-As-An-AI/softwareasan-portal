@@ -3,13 +3,23 @@
   <channel>
     <title>Genesis Imaging</title>
     <link>https://apps.softwareasan.ai/genesis-imaging/appcast.xml</link>
-    <description>Genesis Imaging — on-device image upscaling for macOS. Updates feed for Sparkle auto-update.</description>
+    <description>On-device image upscaling for macOS. Updates feed.</description>
     <language>tr</language>
-    <!--
-      Bu dosya bir seed (boş feed). Genesis Imaging release.yml her v* tag'inde
-      bu dosyayı PORTAL_REPO_TOKEN ile günceller — yeni <item> entry ekler,
-      ed25519-imzalı download URL + sparkle:edSignature içerir.
-      Manuel düzenleme yapma — CI override eder.
-    -->
+    <item>
+      <title>Genesis Imaging 0.2.1</title>
+      <link>https://github.com/Software-As-An-AI/genesis-imaging/releases/tag/v0.2.1</link>
+      <sparkle:version>0.2.1</sparkle:version>
+      <sparkle:shortVersionString>0.2.1</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+      <pubDate>Mon, 11 May 2026 03:57:36 +0000</pubDate>
+      <description><![CDATA[
+        <p>Genesis Imaging v0.2.1 — release notes:
+        <a href="https://github.com/Software-As-An-AI/genesis-imaging/releases/tag/v0.2.1">github.com/Software-As-An-AI/genesis-imaging/releases/tag/v0.2.1</a></p>
+      ]]></description>
+      <enclosure
+        url="https://github.com/Software-As-An-AI/genesis-imaging/releases/download/v0.2.1/genesis-imaging-v0.2.1-darwin-arm64.dmg"
+        type="application/octet-stream"
+        sparkle:edSignature="KZzKloh+po6Ml6D12+gA21wGypqJEECWcWYEpMmk2xLDQGTa+P/64cSMGiQDnFWlVaTdnSGpRjlzjs3QkuyWBg==" length="113831227" />
+    </item>
   </channel>
 </rss>
