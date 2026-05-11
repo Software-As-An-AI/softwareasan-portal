@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle">
+  <channel>
+    <title>Genesis Imaging</title>
+    <link>https://apps.softwareasan.ai/genesis-imaging/appcast.xml</link>
+    <description>Genesis Imaging — on-device image upscaling for macOS. Updates feed for Sparkle auto-update.</description>
+    <language>tr</language>
+    <!--
+      Bu dosya bir seed (boş feed). Genesis Imaging release.yml her v* tag'inde
+      bu dosyayı PORTAL_REPO_TOKEN ile günceller — yeni <item> entry ekler,
+      ed25519-imzalı download URL + sparkle:edSignature içerir.
+      Manuel düzenleme yapma — CI override eder.
+    -->
+  </channel>
+</rss>
