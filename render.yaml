@@ -2,7 +2,7 @@ services:
   - type: web
     name: softwareasan-portal
     runtime: static
-    repo: https://github.com/okanyucel2/softwareasan-portal
+    repo: https://github.com/Software-As-An-AI/softwareasan-portal
     branch: main
     buildCommand: npm install && npm run build
     staticPublishPath: ./dist
