@@ -10,6 +10,13 @@ services:
       - key: NODE_VERSION
         value: "20"
     headers:
+      # Appcast XML files: short TTL (5 min) — Sparkle update detection.
+      # Long-cache (1h) here caused user-visible lag where new releases took
+      # ~1 hour to surface in installed apps. 300s keeps freshness without
+      # crushing origin (Sparkle clients poll once per 24h by default).
+      - path: /*/appcast.xml
+        name: Cache-Control
+        value: public, max-age=300
       - path: /*
         name: Cache-Control
         value: public, max-age=3600
