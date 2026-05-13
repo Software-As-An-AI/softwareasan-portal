@@ -1,0 +1,61 @@
+name: Deploy to gns-gate-01
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - 'index.html'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/deploy.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-portal
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install + build
+        run: |
+          npm ci
+          npm run build
+          ls -lh dist/
+
+      - name: Set up SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.PORTAL_VPS_DEPLOY_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          # Pin host key to prevent MITM. Get fingerprint via:
+          # ssh-keyscan -t ed25519 31.40.204.68
+          echo "31.40.204.68 ssh-ed25519 $(ssh-keyscan -t ed25519 31.40.204.68 2>/dev/null | awk '{print $3}')" > ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+
+      - name: Rsync to VPS
+        run: |
+          rsync -avz --delete \
+            -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=yes" \
+            dist/ \
+            root@31.40.204.68:/var/www/softwareasan-portal/dist/
+
+      - name: Verify deployment
+        run: |
+          # Wait a moment for CF cache + serve
+          sleep 3
+          # Test appcast endpoint
+          curl -fsSL https://apps.softwareasan.ai/genesis-imaging/appcast.xml \
+            | grep -E "<sparkle:version>" | head -1
+          echo "Deploy verified"
