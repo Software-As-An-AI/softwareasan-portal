@@ -57,7 +57,6 @@ const projects: Project[] = [
 ]
 
 const GENESIS_IMAGING_DOWNLOAD = 'https://apps.softwareasan.ai/genesis-imaging/latest.dmg'
-const GENESIS_IMAGING_RELEASES = 'https://github.com/Software-As-An-AI/genesis-imaging/releases/latest'
 const GENESIS_IMAGING_GITHUB = 'https://github.com/Software-As-An-AI/genesis-imaging'
 
 // -----------------------------------------------------------------------------
