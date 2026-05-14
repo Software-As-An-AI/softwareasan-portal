@@ -56,6 +56,7 @@ const projects: Project[] = [
   },
 ]
 
+const GENESIS_IMAGING_DOWNLOAD = 'https://apps.softwareasan.ai/genesis-imaging/latest.dmg'
 const GENESIS_IMAGING_RELEASES = 'https://github.com/Software-As-An-AI/genesis-imaging/releases/latest'
 const GENESIS_IMAGING_GITHUB = 'https://github.com/Software-As-An-AI/genesis-imaging'
 
@@ -145,7 +146,7 @@ function renderGenesisImagingDetail(): string {
         <div class="product-hero-icon">&#x1F5BC;&#xFE0F;</div>
         <h1 class="product-title">Genesis Imaging</h1>
         <p class="product-tagline">On-device image upscaling for macOS &mdash; 5x faster via Apple Neural Engine.</p>
-        <a href="${GENESIS_IMAGING_RELEASES}" class="cta-primary" target="_blank" rel="noopener">
+        <a href="${GENESIS_IMAGING_DOWNLOAD}" class="cta-primary" target="_blank" rel="noopener">
           <span class="cta-icon">&darr;</span>
           <span class="cta-label">Mac i&#231;in indir</span>
           <span class="cta-sublabel">Apple Silicon &middot; macOS 14+</span>
