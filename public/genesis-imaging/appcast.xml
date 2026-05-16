@@ -6,20 +6,20 @@
     <description>On-device image upscaling for macOS. Updates feed.</description>
     <language>tr</language>
     <item>
-      <title>Genesis Imaging 0.3.5.8</title>
-      <link>https://github.com/Software-As-An-AI/genesis-imaging/releases/tag/v0.3.5.8</link>
-      <sparkle:version>0.3.5.8</sparkle:version>
-      <sparkle:shortVersionString>0.3.5.8</sparkle:shortVersionString>
+      <title>Genesis Imaging 0.3.5.9</title>
+      <link>https://github.com/Software-As-An-AI/genesis-imaging/releases/tag/v0.3.5.9</link>
+      <sparkle:version>0.3.5.9</sparkle:version>
+      <sparkle:shortVersionString>0.3.5.9</sparkle:shortVersionString>
       <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
-      <pubDate>Sat, 16 May 2026 10:54:02 +0000</pubDate>
+      <pubDate>Sat, 16 May 2026 11:11:09 +0000</pubDate>
       <description><![CDATA[
-        <p>Genesis Imaging v0.3.5.8 — release notes:
-        <a href="https://github.com/Software-As-An-AI/genesis-imaging/releases/tag/v0.3.5.8">github.com/Software-As-An-AI/genesis-imaging/releases/tag/v0.3.5.8</a></p>
+        <p>Genesis Imaging v0.3.5.9 — release notes:
+        <a href="https://github.com/Software-As-An-AI/genesis-imaging/releases/tag/v0.3.5.9">github.com/Software-As-An-AI/genesis-imaging/releases/tag/v0.3.5.9</a></p>
       ]]></description>
       <enclosure
-        url="https://github.com/Software-As-An-AI/genesis-imaging/releases/download/v0.3.5.8/genesis-imaging-v0.3.5.8-darwin-arm64.dmg"
+        url="https://github.com/Software-As-An-AI/genesis-imaging/releases/download/v0.3.5.9/genesis-imaging-v0.3.5.9-darwin-arm64.dmg"
         type="application/octet-stream"
-        sparkle:edSignature="v1dTzPpCTGTw9waRopGCCl3567+vtewvJhB0stzy1tfmZbjpHDRJcIL5hVtxVfSECqsNN2wRee9SXK5Fi9/bCQ==" length="116246195" />
+        sparkle:edSignature="C/eejfxhjPMbOQeivkLldsVYxU9+xD6uXUISpmkl8VK3bbD706VeYofLBN5Yzl9hd4LEKwKIKnQHYXHUXRqnBQ==" length="116246249" />
     </item>
   </channel>
 </rss>
