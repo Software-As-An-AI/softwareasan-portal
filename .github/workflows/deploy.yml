@@ -44,12 +44,14 @@ jobs:
           echo "31.40.204.68 ssh-ed25519 $(ssh-keyscan -t ed25519 31.40.204.68 2>/dev/null | awk '{print $3}')" > ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
 
+      # Hedef `./`: sunucudaki anahtar rrsync ile /var/www/softwareasan-portal/dist/ dizinine
+      # kısıtlı (2026-10-03); yol o dizine göre yorumlanır, mutlak yol kırmızı koşar.
       - name: Rsync to VPS
         run: |
           rsync -avz --delete \
             -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=yes" \
             dist/ \
-            root@31.40.204.68:/var/www/softwareasan-portal/dist/
+            root@31.40.204.68:./
 
       - name: Verify deployment
         run: |
