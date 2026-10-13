@@ -542,3 +542,35 @@ body {
   .feature-grid { grid-template-columns: 1fr; }
   .product-meta { gap: 16px; flex-wrap: wrap; }
 }
+
+/* ── Kök tanıtım sayfası (statik HTML; JS'siz okunur) ───────────────────── */
+.kok {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 72px 24px 56px;
+  font-family: var(--font-body);
+  line-height: 1.65;
+}
+.kok-ust { margin-bottom: 40px; }
+.kok h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 14px;
+}
+.kok-ozet { font-size: 1.15rem; color: var(--text-primary); opacity: 0.85; }
+.kok-bolum, .kok-alt { margin-top: 36px; padding-top: 24px; border-top: 1px solid var(--border); }
+.kok h2 {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+.kok p, .kok li { color: #cbd5e1; }
+.kok-liste { list-style: none; display: grid; gap: 10px; }
+.kok-liste li { padding: 12px 14px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; }
+.kok-liste strong { color: var(--text-primary); }
+.kok a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+.kok a:hover, .kok a:focus-visible { color: #5eead4; }

@@ -1,128 +1,20 @@
 import './style.css'
 
 // =============================================================================
-// SoftwareAsan Apps Portal
+// SoftwareAsan Portal
 // -----------------------------------------------------------------------------
-// Path-based dispatch:
-//   /                      -> katalog (cards grid)
-//   /genesis-imaging       -> Genesis Imaging product detail page
-//   /<anything-else>       -> fallback to katalog (Render rewrite handles SPA)
+// Kök yol (`/`) STATİK HTML'dir (index.html içinde, JS'siz okunur — kurum
+// güvenlik cihazlarının sınıflandırıcıları JS koşturmaz). Bu betik kökte
+// hiçbir şeyi ezmez; yalnız ürün sayfasını render eder:
+//   /                  -> index.html'deki statik tanıtım (JS bir şey yapmaz)
+//   /genesis-imaging   -> Genesis Imaging ürün sayfası (JS ile render edilir)
+//   /<başka>           -> Render rewrite index.html'e düşürür: statik tanıtım
 //
-// All content is hardcoded — no user input flows into rendering. Safe to use
-// innerHTML for static markup.
+// İçerik sabit — kullanıcı girdisi render'a girmez; innerHTML statik markup için güvenli.
 // =============================================================================
-
-interface Project {
-  id: string
-  title: string
-  desc: string
-  icon: string
-  /** Card click target. Use `/<slug>` for internal product detail, full URL for external. */
-  url: string
-  status: 'live' | 'invite' | 'dev'
-  tags: string[]
-  /** If true, card href is treated as internal app route (no target=_blank). */
-  internal?: boolean
-}
-
-const projects: Project[] = [
-  {
-    id: 'genesis-imaging',
-    title: 'Genesis Imaging',
-    desc: 'macOS native gorsel iyilestirme — Apple Neural Engine uzerinden 5x hizli, on-device, Real-ESRGAN. Ilk consumer mac native edition.',
-    icon: '\u{1F5BC}\u{FE0F}',
-    url: '/genesis-imaging',
-    status: 'live',
-    tags: ['macOS Native', 'Apple Silicon', 'ANE', 'On-Device'],
-    internal: true,
-  },
-  {
-    id: 'paperclip',
-    title: 'Paperclip SAFE',
-    desc: 'Encryption-in-use teknolojisi ile kurumsal veri guvenliqi demo platformu. Canli saldiri simülasyonu ve karsilastirmali analiz.',
-    icon: '\u{1F510}',
-    url: 'https://paperclip.softwareasan.ai',
-    status: 'live',
-    tags: ['Veri Guvenligi', 'Encryption', 'SaaS Demo'],
-  },
-  {
-    id: 'mirakl',
-    title: 'Mirakl',
-    desc: 'Askeri seviye guvenlik ve istihbarat platformu. Erisim sadece davetli kullanicilar icindir.',
-    icon: '\u{1F6E1}\u{FE0F}',
-    url: '#',
-    status: 'invite',
-    tags: ['Savunma', 'Guvenlik', 'Invite Only'],
-  },
-]
 
 const GENESIS_IMAGING_RELEASES = 'https://github.com/Software-As-An-AI/genesis-imaging/releases/latest'
 const GENESIS_IMAGING_GITHUB = 'https://github.com/Software-As-An-AI/genesis-imaging'
-
-// -----------------------------------------------------------------------------
-// Katalog rendering
-// -----------------------------------------------------------------------------
-
-function renderBadge(status: Project['status']): string {
-  const labels: Record<string, string> = { live: 'Canli', invite: 'Davetli', dev: 'Gelistirme' }
-  return `<span class="card-badge badge--${status}">${labels[status]}</span>`
-}
-
-function renderCard(p: Project): string {
-  const isLocked = p.status === 'invite' || p.status === 'dev'
-  const isInternal = p.internal === true
-  const tag = isLocked ? 'div' : 'a'
-  const targetAttr = isInternal || isLocked ? '' : ' target="_blank" rel="noopener"'
-  const href = isLocked ? '' : ` href="${p.url}"${targetAttr}`
-  const lockedClass = isLocked ? ' project-card--locked' : ''
-
-  return `
-    <${tag}${href} class="project-card${lockedClass}">
-      <div class="card-header">
-        <div class="card-icon">${p.icon}</div>
-        ${renderBadge(p.status)}
-      </div>
-      <div class="card-title">${p.title}</div>
-      <div class="card-desc">${p.desc}</div>
-      <div class="card-tags">
-        ${p.tags.map(t => `<span class="tag">${t}</span>`).join('')}
-      </div>
-      ${!isLocked ? '<span class="card-arrow">&rarr;</span>' : ''}
-    </${tag}>
-  `
-}
-
-function renderKatalog(): string {
-  return `
-    <div class="portal">
-      <nav class="nav">
-        <div class="nav-brand">
-          <div class="nav-logo">&#9889;</div>
-          <div class="nav-title">Software<span>Asan</span></div>
-        </div>
-        <span class="nav-tag">Apps</span>
-      </nav>
-
-      <section class="hero">
-        <div class="hero-eyebrow">
-          <span class="hero-dot"></span>
-          Genesis Apps
-        </div>
-        <h1>Projelerinize<br />tek noktadan erisin.</h1>
-        <p>Her proje kendi ortaminda, kendi kurallariyla. Ilgilendiginiz uygulamayi secin ve baslayin.</p>
-      </section>
-
-      <div class="section-label">Aktif Uygulamalar</div>
-      <div class="projects">
-        ${projects.map(renderCard).join('')}
-      </div>
-
-      <footer class="footer">
-        &copy; 2026 SoftwareAsan &mdash; <a href="mailto:info@softwareasan.ai">info@softwareasan.ai</a>
-      </footer>
-    </div>
-  `
-}
 
 // -----------------------------------------------------------------------------
 // Product detail — Genesis Imaging
@@ -139,7 +31,7 @@ function renderGenesisImagingDetail(): string {
         <span class="nav-tag">Apps</span>
       </nav>
 
-      <a href="/" class="back-link">&larr; T&#252;m Uygulamalar</a>
+      <a href="/" class="back-link">&larr; Ana sayfa</a>
 
       <section class="product-hero">
         <div class="product-hero-icon">&#x1F5BC;&#xFE0F;</div>
@@ -205,22 +97,12 @@ function renderGenesisImagingDetail(): string {
 }
 
 // -----------------------------------------------------------------------------
-// Path dispatch
+// Path dispatch — yalnız ürün sayfası JS ile render edilir; kök statik kalır
 // -----------------------------------------------------------------------------
 
-function dispatch(): string {
-  const path = window.location.pathname.replace(/\/+$/, '') || '/'
-  if (path === '/genesis-imaging') {
-    return renderGenesisImagingDetail()
-  }
-  return renderKatalog()
+const path = window.location.pathname.replace(/\/+$/, '') || '/'
+if (path === '/genesis-imaging') {
+  const app = document.querySelector<HTMLDivElement>('#app')!
+  app.innerHTML = renderGenesisImagingDetail()
+  document.title = 'Genesis Imaging — Mac için indir'
 }
-
-const app = document.querySelector<HTMLDivElement>('#app')!
-app.innerHTML = dispatch()
-
-// Update page title based on route
-document.title =
-  window.location.pathname === '/genesis-imaging'
-    ? 'Genesis Imaging — Mac için indir'
-    : 'Genesis Apps — SoftwareAsan'
