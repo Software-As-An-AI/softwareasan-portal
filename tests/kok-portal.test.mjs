@@ -3,7 +3,7 @@
 // Çalıştırma: `npm test` (önce build, sonra bu dosya hem kaynak index.html'i hem dist/index.html'i sınar).
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { readFileSync, existsSync } from 'node:fs'
+import { readFileSync, existsSync, readdirSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { dirname, join } from 'node:path'
 
@@ -69,4 +69,23 @@ test('main.ts: kök yolda statik içeriği ezmez, başlığı yalnız ürün say
 test('dist/index.html (varsa): stilsiz okunabilir kalmaz — stylesheet bağlantısı head içinde', { skip: !existsSync(join(kok, 'dist', 'index.html')) }, () => {
   const html = readFileSync(join(kok, 'dist', 'index.html'), 'utf8')
   assert.match(html, /<link[^>]+rel="stylesheet"[^>]+href="\/assets\/[^"]+\.css"/)
+})
+
+// Yazı tipleri kendi alan adımızdan sunulur: Google Fonts isteği YOK (gizlilik; kurum güvenlik cihazı). Operatör "3 evet" 2026-10-13.
+test('yazı tipleri self-host: kaynak ve dist\'te fonts.googleapis.com / fonts.gstatic.com yok, woff2 dosyaları dist/assets\'te', () => {
+  const dosyalar = [['index.html', join(kok, 'index.html')], ['src/style.css', join(kok, 'src', 'style.css')]]
+  const assets = join(kok, 'dist', 'assets')
+  if (existsSync(assets)) {
+    for (const f of readdirSync(assets)) if (/\.(css|js)$/.test(f)) dosyalar.push([`dist/assets/${f}`, join(assets, f)])
+    dosyalar.push(['dist/index.html', join(kok, 'dist', 'index.html')])
+  }
+  for (const [ad, yol] of dosyalar) {
+    assert.ok(!/fonts\.googleapis\.com|fonts\.gstatic\.com/.test(readFileSync(yol, 'utf8')), `${ad}: Google Fonts referansı var`)
+  }
+  if (existsSync(assets)) {
+    const woff2 = readdirSync(assets).filter((f) => f.endsWith('.woff2'))
+    assert.ok(woff2.length >= 3, `dist/assets'te woff2 yok/az (${woff2.length})`)
+    const css = readdirSync(assets).filter((f) => f.endsWith('.css')).map((f) => readFileSync(join(assets, f), 'utf8')).join('\n')
+    for (const aile of ['Plus Jakarta Sans', 'Inter', 'JetBrains Mono']) assert.ok(css.includes(aile), `@font-face ${aile} yok`)
+  }
 })

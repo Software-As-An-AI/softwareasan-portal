@@ -19,9 +19,9 @@
   --invite: #f59e0b;
   --invite-dim: rgba(245, 158, 11, 0.12);
   --grid-color: rgba(255, 255, 255, 0.025);
-  --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
-  --font-body: 'Inter', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  --font-display: 'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-body: 'Inter Variable', 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
 }
 
 html { scroll-behavior: smooth; }
