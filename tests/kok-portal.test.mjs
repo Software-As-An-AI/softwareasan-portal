@@ -31,6 +31,12 @@ for (const [ad, yol] of kaynaklar) {
   const html = readFileSync(yol, 'utf8')
   const metin = jssizMetin(html)
 
+  test(`${ad}: "Ayrıca" bölümü yok — Genesis Imaging ve Paperclip SAFE bağlantıları kaldırıldı (operatör 2026-10-13 22:2x)`, () => {
+    assert.ok(!/Ayrıca/.test(metin), 'Ayrıca bölümü duruyor')
+    assert.ok(!/Genesis Imaging|Paperclip/i.test(metin), 'kaldırılan ürün adı metinde')
+    assert.ok(!/href="\/genesis-imaging"|paperclip\.softwareasan\.ai/.test(html), 'kaldırılan bağlantı duruyor')
+  })
+
   test(`${ad}: <title> ve meta description ZEMİN metniyle birebir`, () => {
     assert.match(html, /<html lang="tr"/)
     assert.ok(html.includes(`<title>${TITLE}</title>`), 'title farklı')
