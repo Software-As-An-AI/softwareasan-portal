@@ -102,3 +102,16 @@ test('dist (varsa): genesis-imaging dizini ve Genesis Imaging metni yok', { skip
   const assets = join(kok, 'dist', 'assets')
   for (const f of readdirSync(assets)) if (f.endsWith('.js')) assert.ok(!/Genesis Imaging|genesis-imaging/i.test(readFileSync(join(assets, f), 'utf8')), `${f}: Genesis Imaging metni var`)
 })
+
+// Yayın iş akışı: kaldırılan ürünün dosyasını doğrulamaz (aksi halde her push sonrası "Verify deployment" 404 ile kırmızı düşer).
+test('deploy.yml: imaging izi yok, doğrulama adımı kök sayfanın yeni başlığını sınar', () => {
+  const yml = readFileSync(join(kok, '.github', 'workflows', 'deploy.yml'), 'utf8')
+  assert.ok(!/imaging|appcast/i.test(yml), 'deploy.yml kaldırılan ürünün dosyasına (imaging/appcast) bakıyor')
+  const dogrulama = yml.slice(yml.indexOf('name: Verify deployment'))
+  assert.ok(dogrulama.includes('https://apps.softwareasan.ai/'), 'doğrulama kök sayfayı çekmiyor')
+  assert.ok(dogrulama.includes('<title>Software as an AI'), 'doğrulama yeni başlığı sınamıyor')
+})
+
+test('src/style.css: Genesis Imaging izi yok (yorum dahil)', () => {
+  assert.ok(!/imaging/i.test(readFileSync(join(kok, 'src', 'style.css'), 'utf8')), 'style.css imaging anıyor')
+})

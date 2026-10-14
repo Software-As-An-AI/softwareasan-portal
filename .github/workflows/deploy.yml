@@ -57,7 +57,7 @@ jobs:
         run: |
           # Wait a moment for CF cache + serve
           sleep 3
-          # Test appcast endpoint
-          curl -fsSL https://apps.softwareasan.ai/genesis-imaging/appcast.xml \
-            | grep -E "<sparkle:version>" | head -1
+          # Kök sayfanın yeni başlığı yayında mı (kaldırılan ürünün dosyasına bakılmaz)
+          curl -fsSL https://apps.softwareasan.ai/ \
+            | grep -q "<title>Software as an AI"
           echo "Deploy verified"
