@@ -89,3 +89,16 @@ test('yazı tipleri self-host: kaynak ve dist\'te fonts.googleapis.com / fonts.g
     for (const aile of ['Plus Jakarta Sans', 'Inter', 'JetBrains Mono']) assert.ok(css.includes(aile), `@font-face ${aile} yok`)
   }
 })
+
+// Genesis Imaging kapatıldı: kullanıcısı yok (operatör 2026-10-14 07:4x, AYNEN "genesis imaging kısmını kapatabiliriz su anda kullanıcısı yok.").
+test('Genesis Imaging izi yok: index.html, src/main.ts ve public/genesis-imaging', () => {
+  assert.ok(!/Genesis Imaging|genesis-imaging/i.test(readFileSync(join(kok, 'index.html'), 'utf8')), 'index.html (og:description dahil) Genesis Imaging anıyor')
+  assert.ok(!/imaging/i.test(readFileSync(join(kok, 'src', 'main.ts'), 'utf8')), 'src/main.ts Genesis Imaging kodu taşıyor')
+  assert.ok(!existsSync(join(kok, 'public', 'genesis-imaging')), 'public/genesis-imaging (appcast + ekran görüntüsü) duruyor')
+})
+
+test('dist (varsa): genesis-imaging dizini ve Genesis Imaging metni yok', { skip: !existsSync(join(kok, 'dist', 'index.html')) }, () => {
+  assert.ok(!existsSync(join(kok, 'dist', 'genesis-imaging')), 'dist/genesis-imaging duruyor')
+  const assets = join(kok, 'dist', 'assets')
+  for (const f of readdirSync(assets)) if (f.endsWith('.js')) assert.ok(!/Genesis Imaging|genesis-imaging/i.test(readFileSync(join(assets, f), 'utf8')), `${f}: Genesis Imaging metni var`)
+})
